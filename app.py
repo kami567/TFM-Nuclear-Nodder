@@ -130,23 +130,25 @@ st.write(f"Mostrando datos de la hoja: {sheet_name} ya dividiendo por unidad ope
 st.write(monthly_data_per_unit.head(5))
 
 
-# Botón para descargar el archivo original
-with open(ruta_archivo_original, "rb") as f:
-    st.download_button(
-        label="Descargar archivo original",
-        data=f,
-        file_name=nombre_archivo_original,
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+# 📥 Botón para descargar el archivo original (solo si existe)
+if ruta_archivo_original is not None and nombre_archivo_original is not None:
+    with open(ruta_archivo_original, "rb") as f:
+        st.download_button(
+            label="📥 Descargar archivo original",
+            data=f,
+            file_name=nombre_archivo_original,
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 
-# Botón de descarga en Streamlit del archivo procesado
+# 📥 Botón de descarga del archivo procesado
+nombre_archivo_procesado = f"monthly_data_per_unit_{fecha_actual}.xlsx"
 output = io.BytesIO()
 with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
     monthly_data_per_unit.to_excel(writer, sheet_name='Monthly Data Per Unit')
     writer.close()
 
 st.download_button(
-    label="Descargar archivo procesado",
+    label="📥 Descargar archivo procesado",
     data=output.getvalue(),
     file_name=nombre_archivo_procesado,
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
