@@ -248,9 +248,11 @@ if usar_sarimax:
     # Convertir años a pasos (steps) de predicción
     steps = años_SARIMAX * 12  # 12 meses por año
 
+    #SARIMAX_Net_Summer_Capacity_MW
+    #SARIMAX_Net_Summer_Capacity_MW
     # Realizar predicciones con SARIMAX
-    pred_sarimax_Net_Summer = SARIMAX_Net_Summer_Capacity_MW.forecast(steps=steps)
-    pred_sarimax_Capacity = SARIMAX_Capacity_Factor_Percent.forecast(steps=steps)
+    pred_sarimax_Net_Summer = SARIMAX_Net_Summer_Capacity_MW.predict(steps=steps)
+    pred_sarimax_Capacity = SARIMAX_Capacity_Factor_Percent.predict(steps=steps)
 
 
     # Inversa la transformación
