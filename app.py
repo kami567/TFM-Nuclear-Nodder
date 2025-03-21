@@ -62,8 +62,8 @@ url_sarimax_capacity = "https://raw.githubusercontent.com/kami567/TFM-Nuclear-No
 url_ridge = "https://raw.githubusercontent.com/kami567/TFM-Nuclear-Nodder/main/modelo_ridge_NetGeneration.pkl"
 
 # Directorios para guardar archivos localmente antes del commit en GitHub
-ruta_sin_procesar = "archivos_sin_procesar"
-ruta_procesados = "archivos_procesados"
+ruta_sin_procesar = "Datos/Datos Sin Procesar"
+ruta_procesados = "Datos/Datos Procesados"
 
 # Preguntar al usuario si quiere cargar desde GitHub o subir manualmente
 use_github = st.radio(
