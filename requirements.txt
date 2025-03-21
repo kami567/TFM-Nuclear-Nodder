@@ -1,0 +1,24 @@
+# Librerías básicas
+numpy
+pandas
+matplotlib
+seaborn
+streamlit
+openpyxl
+xlsxwriter
+plotly
+
+
+# Análisis y estadísticas
+statsmodels
+scipy
+
+# Machine Learning y preprocesamiento
+scikit-learn
+
+# Forecasting con Skforecast
+skforecast
+
+# Interpretabilidad de modelos
+shap
+joblib
