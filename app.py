@@ -130,6 +130,10 @@ st.write(f"Mostrando datos de la hoja: {sheet_name} ya dividiendo por unidad ope
 st.write(monthly_data_per_unit.head(5))
 
 
+ruta_archivo_original = None
+nombre_archivo_original = None
+
+
 # 📥 Botón para descargar el archivo original (solo si existe)
 if ruta_archivo_original is not None and nombre_archivo_original is not None:
     with open(ruta_archivo_original, "rb") as f:
