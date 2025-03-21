@@ -251,8 +251,8 @@ if usar_sarimax:
     #SARIMAX_Net_Summer_Capacity_MW
     #SARIMAX_Net_Summer_Capacity_MW
     # Realizar predicciones con SARIMAX
-    pred_sarimax_Net_Summer = SARIMAX_Net_Summer_Capacity_MW.predict(steps=steps)
-    pred_sarimax_Capacity = SARIMAX_Capacity_Factor_Percent.predict(steps=steps)
+    pred_sarimax_Net_Summer = SARIMAX_Net_Summer_Capacity_MW.get_forecast(steps=steps)
+    pred_sarimax_Capacity = SARIMAX_Capacity_Factor_Percent.get_forecast(steps=steps)
 
 
     # Inversa la transformación
