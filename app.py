@@ -129,7 +129,17 @@ monthly_data_per_unit['Capacity_Factor_Percent'] = monthly_data_extracted['Capac
 st.write(f"Mostrando datos de la hoja: {sheet_name} ya dividiendo por unidad operativa (Monthly Data Per Unit)")
 st.write(monthly_data_per_unit.head(5))
 
-# Botón de descarga en Streamlit
+
+# Botón para descargar el archivo original
+with open(ruta_archivo_original, "rb") as f:
+    st.download_button(
+        label="Descargar archivo original",
+        data=f,
+        file_name=nombre_archivo_original,
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+# Botón de descarga en Streamlit del archivo procesado
 output = io.BytesIO()
 with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
     monthly_data_per_unit.to_excel(writer, sheet_name='Monthly Data Per Unit')
@@ -138,48 +148,9 @@ with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
 st.download_button(
     label="Descargar archivo procesado",
     data=output.getvalue(),
-    file_name="monthly_data_per_unit.xlsx",
+    file_name=nombre_archivo_procesado,
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
-
-# 🔹 Checkbox para permitir guardar en GitHub
-guardar_en_github = st.checkbox("Guardar archivos en GitHub")
-
-if guardar_en_github:
-    # Asegurar que las subcarpetas existan
-    os.makedirs(ruta_sin_procesar, exist_ok=True)
-    os.makedirs(ruta_procesados, exist_ok=True)
-
-    # Guardar archivo original (sin procesar)
-    if use_github == "Usar archivo por defecto de GitHub":
-        response = requests.get(url_tabla)
-        nombre_archivo_original = f"Table_8.1_Nuclear_Energy_Overview_{fecha_actual}.xlsx"
-        ruta_archivo_original = os.path.join(ruta_sin_procesar, nombre_archivo_original)
-        with open(ruta_archivo_original, "wb") as f:
-            f.write(response.content)
-
-    elif use_github == "Subir un archivo propio" and uploaded_file is not None:
-        nombre_base = uploaded_file.name.split(".xlsx")[0]
-        nombre_archivo_original = f"{nombre_base}_{fecha_actual}.xlsx"
-        ruta_archivo_original = os.path.join(ruta_sin_procesar, nombre_archivo_original)
-        with open(ruta_archivo_original, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-
-    # Guardar el archivo procesado
-    nombre_archivo_procesado = f"monthly_data_per_unit_{fecha_actual}.xlsx"
-    ruta_archivo_procesado = os.path.join(ruta_procesados, nombre_archivo_procesado)
-    with pd.ExcelWriter(ruta_archivo_procesado, engine='xlsxwriter') as writer:
-        monthly_data_per_unit.to_excel(writer, sheet_name='Monthly Data Per Unit')
-        writer.close()
-
-    st.success(f"Archivos guardados en:\n- {ruta_archivo_original}\n- {ruta_archivo_procesado}")
-
-    # COMMIT AUTOMÁTICO EN GIT
-    os.system(f"git add '{ruta_archivo_original}' '{ruta_archivo_procesado}'")
-    os.system(f'git commit -m "Añadidos archivos: {nombre_archivo_original} y {nombre_archivo_procesado} del {fecha_actual}"')
-    os.system("git push origin main")
-
-
 
 
 
