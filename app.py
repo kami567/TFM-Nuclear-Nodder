@@ -236,7 +236,7 @@ else:
 
 
 # Selección de años a predecir
-años_SARIMAX = st.number_input("¿Cuántos años quieres predecir?", min_value=1, max_value=15, value=10, step=1, key = "Años SARIMAX")
+años_SARIMAX = st.number_input("¿Cuántos años quieres predecir?", min_value=1, max_value=20, value=10, step=1, key = "Años SARIMAX")
 
 # Interfaz en Streamlit
 st.title("Predicción con SARIMAX de variables exógenas")
@@ -361,7 +361,7 @@ else:
 # Interfaz en Streamlit
 st.title("Predicción con Ridge")
 # Selección de años a predecir
-años_Ridge = st.number_input("¿Cuántos años quieres predecir?", min_value=1, max_value=15, value=10, step=1, key = "Años Ridge")
+años_Ridge = st.number_input("¿Cuántos años quieres predecir?", min_value=1, max_value=20, value=10, step=1, key = "Años Ridge")
 
 # Checkbox para decidir si predecir con Ridge
 usar_ridge = st.checkbox("¿Quieres predecir Net Generation MWh con Ridge?")
