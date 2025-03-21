@@ -126,8 +126,8 @@ monthly_data_extracted = monthly_data_extracted.loc['1994-12-01':]
 # Calcular valores por unidad operativa
 #Variable por unidad operativa
 monthly_data_per_unit = monthly_data_extracted.drop(columns=['Total_Operable_Units']).div(monthly_data_extracted['Total_Operable_Units'], axis=0)
-monthly_data_per_unit['Net_Summer_Capacity_MW'] = monthly_data_per_unit['Net_Summer_Capacity_MW'].mul(monthly_data_extracted['Total_Operable_Units'], axis=0)
-monthly_data_per_unit['Capacity_Factor_Percent'] = monthly_data_per_unit['Capacity_Factor_Percent'].mul(monthly_data_extracted['Total_Operable_Units'], axis=0)
+monthly_data_per_unit['Net_Summer_Capacity_MW'] = monthly_data_extracted['Net_Summer_Capacity_MW']
+monthly_data_per_unit['Capacity_Factor_Percent'] = monthly_data_extracted['Capacity_Factor_Percent']
 # Mostrar resultados
 st.write(f"Mostrando datos de la hoja: {sheet_name} ya dividiendo por unidad operativa (Monthly Data Per Unit)")
 st.write(monthly_data_per_unit.head(5))
