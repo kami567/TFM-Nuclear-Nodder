@@ -57,7 +57,7 @@ url_tabla = "https://raw.githubusercontent.com/kami567/TFM-Nuclear-Nodder/main/T
 url_scaler = "https://raw.githubusercontent.com/kami567/TFM-Nuclear-Nodder/main/scalers.pkl"
 # Definir las URLs de los modelos en GitHub
 #SARIMAX_Net_Summer_Capacity_MW (1).joblib
-url_sarimax_mw = "https://raw.githubusercontent.com/kami567/TFM-Nuclear-Nodder/main/SARIMAX_Net_Summer_Capacity_MW (1).joblib"
+url_sarimax_mw = "https://raw.githubusercontent.com/kami567/TFM-Nuclear-Nodder/main/SARIMAX_Net_Summer_Capacity_MW.joblib"
 url_sarimax_capacity = "https://raw.githubusercontent.com/kami567/TFM-Nuclear-Nodder/main/SARIMAX_Capacity_Factor_Percent.joblib"
 url_ridge = "https://raw.githubusercontent.com/kami567/TFM-Nuclear-Nodder/main/modelo_ridge_NetGeneration.pkl"
 
