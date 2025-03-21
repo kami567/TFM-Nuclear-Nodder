@@ -47,9 +47,6 @@ import joblib
 fecha_actual = datetime.now().strftime("%Y-%m-%d")
 st.write("Fecha actual:", fecha_actual)
 
-# Definir las rutas base
-ruta_sin_procesar = os.path.join("Datos", "Datos Sin Procesar", fecha_actual)
-ruta_procesados = os.path.join("Datos", "Datos Procesados", fecha_actual)
 
 # URL del archivo por defecto en GitHub
 url_tabla = "https://raw.githubusercontent.com/kami567/TFM-Nuclear-Nodder/main/Table_8.1_Nuclear_Energy_Overview.xlsx"
@@ -153,24 +150,35 @@ if guardar_en_github:
     os.makedirs(ruta_sin_procesar, exist_ok=True)
     os.makedirs(ruta_procesados, exist_ok=True)
 
-    if use_github == "Subir un archivo propio" and uploaded_file is not None:
-        # Guardar el archivo sin procesar en la carpeta correspondiente
-        ruta_archivo_original = os.path.join(ruta_sin_procesar, uploaded_file.name)
+    # Guardar archivo original (sin procesar)
+    if use_github == "Usar archivo por defecto de GitHub":
+        response = requests.get(url_tabla)
+        nombre_archivo_original = f"Table_8.1_Nuclear_Energy_Overview_{fecha_actual}.xlsx"
+        ruta_archivo_original = os.path.join(ruta_sin_procesar, nombre_archivo_original)
+        with open(ruta_archivo_original, "wb") as f:
+            f.write(response.content)
+
+    elif use_github == "Subir un archivo propio" and uploaded_file is not None:
+        nombre_base = uploaded_file.name.split(".xlsx")[0]
+        nombre_archivo_original = f"{nombre_base}_{fecha_actual}.xlsx"
+        ruta_archivo_original = os.path.join(ruta_sin_procesar, nombre_archivo_original)
         with open(ruta_archivo_original, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
-    # Guardar el archivo procesado en la carpeta de datos procesados
-    ruta_archivo_procesado = os.path.join(ruta_procesados, "monthly_data_per_unit.xlsx")
+    # Guardar el archivo procesado
+    nombre_archivo_procesado = f"monthly_data_per_unit_{fecha_actual}.xlsx"
+    ruta_archivo_procesado = os.path.join(ruta_procesados, nombre_archivo_procesado)
     with pd.ExcelWriter(ruta_archivo_procesado, engine='xlsxwriter') as writer:
         monthly_data_per_unit.to_excel(writer, sheet_name='Monthly Data Per Unit')
         writer.close()
 
-    st.success(f"Archivos guardados en:\n- {ruta_sin_procesar}\n- {ruta_procesados}")
+    st.success(f"Archivos guardados en:\n- {ruta_archivo_original}\n- {ruta_archivo_procesado}")
 
     # COMMIT AUTOMÁTICO EN GIT
-    os.system(f"git add {ruta_sin_procesar} {ruta_procesados}")
-    os.system(f'git commit -m "Añadidos archivos sin procesar y procesados del {fecha_actual}"')
+    os.system(f"git add '{ruta_archivo_original}' '{ruta_archivo_procesado}'")
+    os.system(f'git commit -m "Añadidos archivos: {nombre_archivo_original} y {nombre_archivo_procesado} del {fecha_actual}"')
     os.system("git push origin main")
+
 
 
 
